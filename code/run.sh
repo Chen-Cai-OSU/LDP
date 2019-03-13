@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-~/anaconda2/bin/python main.py --dataset 'reddit_binary'  --n_bin 100 --norm_flag 'no'
-exit
 ~/anaconda2/bin/python main.py --dataset 'imdb_multi'  --n_bin 100 --norm_flag 'no'
 ~/anaconda2/bin/python main.py --dataset 'imdb_binary'  --n_bin 70 --norm_flag 'no'
+
+#~/anaconda2/bin/python main.py --dataset 'reddit_binary'  --n_bin 100 --norm_flag 'yes'
 
 exit
 for dataset in  'reddit_12K' #'collab' 'reddit_5K' 'reddit_12K'
