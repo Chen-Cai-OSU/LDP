@@ -12,8 +12,8 @@ from tmp import make_direct
 from sklearn.preprocessing import normalize
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--dataset", type=str, default='reddit_binary')
-parser.add_argument('--n_bin', type=int, default=100)
+parser.add_argument("--dataset", type=str, default='reddit_12K')
+parser.add_argument('--n_bin', type=int, default=50)
 parser.add_argument('--norm_flag', type=str, default='yes')
 
 if __name__ == '__main__':
@@ -25,7 +25,7 @@ if __name__ == '__main__':
 
     # hyperparameters
     n_bin = args.n_bin
-    norm_flag = args.norm_flag  # normalize before calling function_basis versus. normalize after
+    norm_flag = args.norm_flag  # normalize before calling function_basis versus normalize after
     nonlinear_kernel = 'False' # linear kernel versus nonlinear kernel
     cdf_flag = False # cdf versus pdf
 
@@ -54,12 +54,13 @@ if __name__ == '__main__':
         if norm_flag == 'no': graphs_ = new_norm(graphs_, bl_feat)
         save_graphs_(graphs_, dataset=dataset, norm_flag=norm_flag)
 
-    sys.exit()
     x_original = merge_features(dataset, graphs_, bl_feat, n_bin, his_norm_flag=his_norm_flag, cdf_flag=cdf_flag, uniform_flag=uniform_flag)
+    # x = x_original
     x = normalize(x_original, axis = 1)
-
     y = np.array(labels)
-    best_params_ = searchclf(x, y, randomseed, test_size=0.1, nonlinear_flag=nonlinear_kernel, verbose=0, print_flag='on')
+
+    # best_params_ = searchclf(x, y, randomseed, test_size=0.1, nonlinear_flag=nonlinear_kernel, verbose=0, print_flag='on')
+    best_params_ = {'kernel': 'linear', 'C': 10000}
     print best_params_
     evaluate_clf(x, y, best_params_, 10, n_eval=1)
 
