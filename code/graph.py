@@ -14,24 +14,6 @@ def make_direct(direct):
 def load_graph(graph, debug='off', single_graph_flag=True):
     # exptect label to be numpy.ndarry of shape (n,). However protein_data is different so have to handle it differently
     assert type(graph) == str
-    directory = '/home/cai.507/Documents/DeepLearning/deep-persistence/' + graph + '/LearningFiltration'
-    # make_direct(directory)
-    # inputFile = directory + '/graph+label'
-    #
-    # if os.path.isfile(inputFile):
-    #     start = time.time()
-    #     print('Loading existing files')
-    #     fd = open(inputFile, 'rb')
-    #     if graph == 'reddit_12K':
-    #         file = '/home/cai.507/Documents/DeepLearning/deep-persistence/dataset/datasets/' + 'reddit_12K' + '.graph'
-    #         f = open(file, 'r')
-    #         data = pickle.load(f)
-    #         graphs_ = data['graph']
-    #         labels_ = data['labels']
-    #     else:
-    #         (graphs_, labels_) = pickle.load(fd)
-    #     print('Loading takes %s' % (time.time() - start))
-
     print('Start Loading from dataset')
     file = os.path.join("../data/", graph + ".graph")
     # if not os.path.isfile(file): file = '/home/cai.507/Documents/DeepLearning/deep-persistence/dataset/datasets/' + graph + '.graph'
@@ -66,7 +48,7 @@ def convert2nx(graph, i, print_flag='False'):
 
     # add nodes
     gi = nx.Graph()
-    for i in keys: gi.add_node(i) # change from 1 to i. Something wired here
+    for i in keys: gi.add_node(i) # change from 1 to i.
     assert len(gi) == len(keys)
 
     # add edges
@@ -195,27 +177,4 @@ def save_graphs_(graphs_, dataset='imdb_binary', norm_flag='yes'):
         pickle.dump(graphs_, f)
     print('Saved graphs. Takes %s'%(time.time() - t0))
 
-def stoa():
-    mlg = {'mutag': '87.4+/-1.61',  'ptc': '63.26(+/-1.48)' , 'enzyme': '61.81(+/-0.99)',  'protein_data': '76.34(+/-0.72)',  'nci1': '81.75(+/-0.24)', 'nci109': '81.31(+/-0.22)'}
-    wl = {'mutag': '84.50(+/-2.16)', 'ptc': '59.97(+/-1.60)', 'enzyme': '53.75(+/-1.37)', 'protein_data': '75.49(+/-0.57)', 'nci1': '84.76(+/-0.32)', 'nci109': '85.12(+/-0.29)'}
-    wl_edge = {'mutag': '82.94(+/-2.33)',  'ptc': '60.18(+/-2.19)', 'enzyme': '52.00(+/-0.72)',  'protein_data': '74.78(+/-0.59)', 'nci1': '84.65(+/-0.25)', 'nci109': '85.32(+/-0.34)'}
-    fgsd = {'mutag': '92.12', 'ptc': '62.8', 'protein_data': '73.42', 'nci1': '79.8', 'nci109': '78.84', 'dd': '77.10', 'mao': '95.59',
-            'reddit_binary': '86.5', 'reddit_5K': '47.76', 'reddit_12K': '47.76', 'imdb_binary': '73.62', 'imdb_multi': '52.41', 'collab': '80.02'}
-    roland = {'reddit_5K': '54.5', 'reddit_12K': '44.5'}
-    retgk = {'mutag': '90.31', 'ptc': '62.5', 'enzyme': '60.4', 'protein_data': '75.8', 'nci1': '84.5', 'dd': '81.6', 'collab': '81.0', 'imdb_binary': '72.3',
-             'imdb_multi': '47.7', 'reddit_binary': '92.6', 'reddit_5K': '56.1', 'reddit_12K': '48.7'}
-    deg_baseline={'mutag': '90.07',
-                  'ptc': '61.7(50bin)/64.5(+label)/',
-                  'protein_data': '71.4/72.5(50bin+cdf, 73.3 if add pair dist)/\n73.7(+label)/74.7(+label + 50bin)',
-                  'nci1': '71/74.7(fine tune)',
-                  'dd':'75.35/76.2(+ricci+label)/77.5(deg+dist+btwn)/\n77.5(deg+label+ricci+dist+btwn)/77.8(+ new norm)',
-                  'enzyme': '35.6(+label)/38.5(+label+ricci)',
-                  'reddit_binary': '90.27/91.4(+dist distribution)/\n91.6(+btwn)/92.1(cdf,100bin)',
-                  'imdb_binary': '70/72.6(+edge dist and btwness)\n/74.0(+dist and btwn(300bin + 0.5ub))/ 75.4(new norm + cdf)',
-                  'imdb_multi':'45(svm)/48(rf)/48.5(rf+btwn, dist feature)\n /49.0(rf+btwn, dist feature fine tunning)\n/50.0(new norm +cdf) /50.8(new norm + cc + edge feature)',
-                  'reddit_5K': '53.8/54.0(+deg sum)\n /54.4(cdf + deg_sum)/54.9(log)/\n55.9(log+log 30bin)/log scale + 30 bin 55.9',
-                  'reddit_12K':'43/44.0+deg sum/\n nonlinear kernel + log scale 47.8',
-                  'collab': '74.7/77.0(rf)/\n77.1(+dist distribution)/\n77.6(rf + old norm +100 bin)\n 78.2(new norm + extra feature + 70 bin + cdf)'}
-
-    return {'mlg': mlg, 'wl': wl, 'wl_edge':wl_edge, 'fgsd': fgsd, 'roland': roland, 'deg_baseline': deg_baseline, 'retgk': retgk}
 

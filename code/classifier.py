@@ -82,7 +82,6 @@ def evaluate_clf(X, Y, best_params_, n_splits, n_eval = 10):
             print('CV Laplacian kernel')
         else:
             cvs = cross_val_score(clf, X, Y, n_jobs=-1, cv=k_fold)
-
         print(cvs)
         acc = cvs.mean()
         accuracy.append(acc)
