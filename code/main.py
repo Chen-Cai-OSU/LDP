@@ -1,26 +1,26 @@
-import networkx as nx
-import sys, os
 import argparse
+import networkx as nx
 import numpy as np
 import pickle
+import sys, os
 import time
 
-from graph import load_graph, function_basis, convert2nx, get_subgraphs, new_norm, save_graphs_
-from tunning import hisgram_single_feature, merge_features
 from classifier import evaluate_clf, searchclf
-from graph import make_direct
-from sklearn.preprocessing import normalize
+from graph import load_graph, function_basis, convert2nx, get_subgraphs, new_norm, save_graphs_
 from hyperparameter import load_best_params_
+from sklearn.preprocessing import normalize
+from tunning import merge_features
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--dataset", type=str, default='reddit_12K')
-parser.add_argument('--n_bin', type=int, default=50)
+parser.add_argument("--dataset", type=str, default='imdb_binary', help='dataset')
+parser.add_argument('--n_bin', type=int, default=50, help='number of bins')
 parser.add_argument('--norm_flag', type=str, default='yes')
 
 # for fine tunning
 parser.add_argument('--nonlinear_flag', type=str, default='False',
                     help='True means turn on nonlinear kernel for SVM. In most dataset, linear kernel is already good enough. ')
-parser.add_argument('--uniform_flag', type=bool, default=True)
+parser.add_argument('--uniform_flag', type=bool, default=True,
+                    help='uniform or log scale when discretizing a distribution')
 
 if __name__ == '__main__':
     randomseed = 42
@@ -34,10 +34,9 @@ if __name__ == '__main__':
     nonlinear_kernel = args.nonlinear_flag # linear kernel versus nonlinear kernel
 
     # less important hyperparameter. Used for fine tunning
-    his_norm_flag = 'yes'
     uniform_flag = args.uniform_flag # unform versus log scale. True for imdb, False for reddit.
     cdf_flag = True # cdf versus pdf. True for most dataset.
-
+    his_norm_flag = 'yes'
 
     graphs, labels = load_graph(dataset)
     n = len(graphs)
@@ -59,8 +58,6 @@ if __name__ == '__main__':
             graphs_.append(gi_s)
         if norm_flag == 'no': graphs_ = new_norm(graphs_, bl_feat)
         save_graphs_(graphs_, dataset=dataset, norm_flag=norm_flag)
-
-    print(len(graphs_))
 
     x_original = merge_features(dataset, graphs_, bl_feat, n_bin, his_norm_flag=his_norm_flag, cdf_flag=cdf_flag, uniform_flag=uniform_flag)
     if norm_flag=='yes':
