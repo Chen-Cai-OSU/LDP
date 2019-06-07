@@ -14,7 +14,7 @@ To better understand the machinery of various methods for graph classification t
  @article{cai2018simple,
   title={A simple yet effective baseline for non-attribute graph classification},
   author={Cai, Chen and Wang, Yusu},
-  journal={arXiv preprint arXiv:1811.03508},
+  journal={ICLR workshop on Representation Learning on Graphs and Manifolds, 2019},
   year={2018}
 }
 ```
