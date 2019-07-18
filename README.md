@@ -1,9 +1,8 @@
 # LDP
 This is the implementation of paper "A simple yet effective baseline for non-attribute graph classification", accpted by ICLR 2019 workshop on Representation learning on graphs and manifolds
 
-```
-To better understand the machinery of various methods for graph classification task, we develop a simple yet meaningful graph representation, and explore its effectiveness and limitation.  Interestingly, this degree based simple representation achieves similar performance as the state-of-the-art graph kernels and graph neural networks for non-attributed graph classification. Its connection to graph neural networks and Weisfeiler-Lehman kernel is also presented.
-```
+*To better understand the machinery of various methods for graph classification task, we develop a simple yet meaningful graph representation, and explore its effectiveness and limitation.  Interestingly, this degree based simple representation achieves similar performance as the state-of-the-art graph kernels and graph neural networks for non-attributed graph classification. Its connection to graph neural networks and Weisfeiler-Lehman kernel is also presented.*
+
 
 - https://arxiv.org/abs/1811.03508
 - In this paper, we showed the existing benchmark dataset for graph classification is too easy to evaluating existing graph classification methods. Many exisiting methods are either based on graph kernel or graph neural networks demonstrated their power on existing dataset, but we found that using very simple feature based on degree statistics + SVM can already yield comparable results on multiple dataset.
